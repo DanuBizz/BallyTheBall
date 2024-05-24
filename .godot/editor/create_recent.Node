@@ -1,0 +1,14 @@
+AudioStreamPlayer
+AnimationPlayer
+Label
+CollisionShape3D
+StaticBody3D
+MeshInstance3D
+Timer
+Node3D
+Sprite2D
+Control
+Area3D
+RigidBody3D
+Button
+ColorRect

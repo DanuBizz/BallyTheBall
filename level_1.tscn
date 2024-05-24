@@ -1,0 +1,420 @@
+[gd_scene load_steps=28 format=3 uid="uid://tptsru5mq3u3"]
+
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_epche"]
+[ext_resource type="PackedScene" uid="uid://q4wcfu0qof3o" path="res://bowly.tscn" id="1_n6wo7"]
+[ext_resource type="Texture2D" uid="uid://dn85ps0aitnvm" path="res://textures/block_PavingStones28_col.jpg" id="1_yuwuh"]
+[ext_resource type="Environment" uid="uid://d1kx0k245tt7t" path="res://new_env.tres" id="2_jfcbn"]
+[ext_resource type="MeshLibrary" uid="uid://8vevod6rnvs" path="res://assets/blocksLibrary.tres" id="4_4shqi"]
+[ext_resource type="PackedScene" uid="uid://by3mrl7m3p21i" path="res://enemy.tscn" id="5_3qt73"]
+[ext_resource type="Texture2D" uid="uid://byec046hwpqcx" path="res://assets/hud_coin.png" id="5_4uav2"]
+[ext_resource type="Script" path="res://scripts/Counter_lvl1.gd" id="6_ggejw"]
+[ext_resource type="PackedScene" uid="uid://bamkutfh238fg" path="res://coin.tscn" id="6_tdvgn"]
+[ext_resource type="Script" path="res://scripts/NextLevel.gd" id="7_xlvnu"]
+[ext_resource type="AudioStream" uid="uid://bl2htxgodswrf" path="res://sounds/game-music-loop-3-144252.mp3" id="10_53vjw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_evvhu"]
+albedo_color = Color(0.780392, 0.643137, 0.772549, 1)
+albedo_texture = ExtResource("1_yuwuh")
+normal_enabled = true
+normal_scale = 5.45
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_i8efw"]
+material = SubResource("StandardMaterial3D_evvhu")
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rp5mo"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="SystemFont" id="SystemFont_volrp"]
+font_names = PackedStringArray("Forte")
+
+[sub_resource type="SystemFont" id="SystemFont_bm2jp"]
+font_names = PackedStringArray("Forte")
+
+[sub_resource type="LabelSettings" id="LabelSettings_3pcpm"]
+font = SubResource("SystemFont_bm2jp")
+font_size = 54
+font_color = Color(1, 0.835294, 0, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_fwj7j"]
+font_names = PackedStringArray("Jokerman")
+
+[sub_resource type="LabelSettings" id="LabelSettings_js6m8"]
+font = SubResource("SystemFont_fwj7j")
+font_size = 80
+shadow_size = 8
+shadow_color = Color(0, 0.835611, 0.885092, 0.792157)
+shadow_offset = Vector2(3.145, 2.525)
+
+[sub_resource type="Animation" id="Animation_2os3f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(358, 726), Vector2(250, 724)]
+}
+
+[sub_resource type="Animation" id="Animation_qnphj"]
+resource_name = "visibility"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(250, 720), Vector2(250, 200)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fgobl"]
+_data = {
+"RESET": SubResource("Animation_2os3f"),
+"visibility": SubResource("Animation_qnphj")
+}
+
+[sub_resource type="Animation" id="Animation_i4tem"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.29417, 0.603103, 2.33832)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lgqqh"]
+resource_name = "enemy1animation"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6, 7.5, 8.4, 9.6, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-2.249, 0.603, 2.20285), Vector3(-2.249, 0.603, -3.017), Vector3(-7.98813, 0.603103, -2.94932), Vector3(-8.02413, 0.603103, -7.99908), Vector3(-3.13085, 0.603103, -7.99908), Vector3(-2.87787, 0.603103, -3.01728), Vector3(-0.92041, 0.603103, -3.01728), Vector3(-0.92041, 0.603103, 2.26707), Vector3(-2.249, 0.603, 2.20285)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6, 7.5, 8.4, 9.6, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-3.14159, 0, 0), Vector3(-3.14159, 0, -3.14159), Vector3(-6.28319, 0, -3.14159), Vector3(-6.28319, 0, -6.28319), Vector3(-3.14159, 0, -6.28319), Vector3(-3.14159, 0, -4.71239), Vector3(0, 0, -4.71239), Vector3(0, 0, -3.14159)]
+}
+
+[sub_resource type="Animation" id="Animation_i3n2e"]
+resource_name = "enemy2animation"
+length = 11.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4.5, 5.5, 7, 8, 9, 10, 11),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(7.95042, 0.603103, 0.750302), Vector3(7.95042, 0.603103, 7.94618), Vector3(-1.92099, 0.603103, 7.94618), Vector3(-1.92099, 0.603103, 5.07819), Vector3(2.87881, 0.603103, 5.07819), Vector3(2.87881, 0.603103, 3.00503), Vector3(4.97936, 0.603103, 3.00503), Vector3(5.01683, 0.603, 0.75), Vector3(7.95042, 0.603103, 0.750302)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 4.5, 5.5, 7, 8, 9, 10, 11),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(3.14159, 0, 0), Vector3(3.14159, 0, -3.14159), Vector3(1.5708, 0, -3.14159), Vector3(1.5708, 0, -1.5708), Vector3(0.785398, 0, -1.5708), Vector3(0.785398, 0, -2.53073), Vector3(0, 0, -2.53073), Vector3(0, 0, -3.14159)]
+}
+
+[sub_resource type="Animation" id="Animation_1ancr"]
+resource_name = "enemy3animation"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.28335, 0.603103, -8.06789), Vector3(7.95253, 0.603103, -8.06789), Vector3(7.95253, 0.603103, -8.06789), Vector3(-1.28335, 0.603103, -8.06789)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 3, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -4.71239), Vector3(0, 0, -4.71239), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yhi8d"]
+_data = {
+"RESET": SubResource("Animation_i4tem"),
+"enemy1animation": SubResource("Animation_lgqqh"),
+"enemy2animation": SubResource("Animation_i3n2e"),
+"enemy3animation": SubResource("Animation_1ancr")
+}
+
+[node name="Level1" type="Node3D"]
+script = ExtResource("1_epche")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_i8efw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_rp5mo")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_jfcbn")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0.160218, 0.802008, 0.575425, -0.688716, -0.326778, 0.647214, 19.4408, 13.5946, 14.4126)
+light_energy = 2.131
+shadow_enabled = true
+
+[node name="Bowly" parent="." instance=ExtResource("1_n6wo7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49221, 0)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("4_4shqi")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65526, 65526, 0, 65526, 65527, 196608, 65526, 65528, 131072, 65526, 65529, 1179648, 65526, 65530, 1114112, 65526, 65531, 1114112, 65526, 65532, 786432, 65526, 65533, 524288, 65526, 65534, 0, 65526, 65535, 1441792, 65526, 0, 1376256, 65526, 1, 589824, 65526, 2, 327680, 65526, 6, 1048576, 65526, 9, 196608, 65526, 3, 393216, 65526, 4, 327680, 65526, 5, 65536, 65527, 9, 65536, 65528, 9, 65536, 65529, 9, 65536, 65530, 9, 65536, 65531, 9, 65536, 65532, 9, 65536, 65533, 9, 65536, 65534, 9, 851968, 65535, 9, 851968, 0, 9, 589824, 1, 9, 524288, 2, 9, 524288, 3, 9, 720896, 4, 9, 1507328, 5, 9, 0, 6, 9, 0, 7, 9, 1441792, 8, 9, 1441792, 9, 9, 1376256, 9, 8, 393216, 9, 7, 655360, 9, 6, 655360, 9, 5, 1048576, 9, 4, 1048576, 9, 3, 1048576, 9, 2, 1245184, 9, 1, 1179648, 9, 0, 1114112, 9, 65535, 1048576, 9, 65534, 1245184, 9, 65533, 1245184, 9, 65532, 1179648, 9, 65531, 1114112, 9, 65530, 1048576, 9, 65529, 262144, 9, 65528, 458752, 9, 65527, 393216, 9, 65526, 65536, 8, 65526, 851968, 7, 65526, 524288, 6, 65526, 720896, 5, 65526, 655360, 4, 65526, 589824, 3, 65526, 1310720, 2, 65526, 1310720, 1, 65526, 917504, 0, 65526, 917504, 65535, 65526, 786432, 65534, 65526, 983040, 65533, 65526, 917504, 65532, 65526, 589824, 65531, 65526, 327680, 65530, 65526, 262144, 65529, 65526, 458752, 65528, 65526, 458752, 65527, 65526, 458752, 65529, 6, 458753, 65530, 6, 983041, 65531, 6, 983041, 65532, 6, 131073, 65532, 5, 131073, 65532, 4, 131073, 65532, 3, 1, 65533, 3, 1, 65534, 3, 1, 65535, 3, 1441793, 0, 3, 1441793, 65532, 2, 1376257, 65532, 1, 393217, 65532, 0, 393217, 65532, 65535, 393217, 65532, 65534, 1114113, 65531, 65534, 1114113, 65530, 65534, 1114113, 65529, 2, 1114113, 65529, 3, 1114113, 65529, 1, 1114113, 65530, 65531, 1114113, 65529, 65531, 1114113, 65529, 65530, 1114113, 65529, 65529, 1114113, 65530, 65529, 1114113, 65531, 65529, 1114113, 65531, 65530, 1114113, 65531, 65531, 1114113, 65534, 65531, 786433, 65535, 65531, 983041, 0, 65533, 1441793, 1, 65533, 1441793, 2, 65533, 1376257, 3, 65533, 393217, 4, 65533, 393217, 6, 4, 393217, 5, 4, 393217, 4, 4, 393217, 6, 2, 393217, 6, 3, 393217, 6, 5, 393217, 6, 6, 393217, 3, 1, 393217, 2, 0, 393217, 3, 0, 393217, 6, 65530, 393217, 6, 65529, 393217, 5, 65529, 393217, 4, 65529, 393217, 3, 65529, 393217, 1, 6, 393217, 0, 6, 393217, 65535, 6, 393217, 65534, 65530, 393217, 65534, 65529, 393217, 0, 65531, 393217, 0, 65532, 393217, 65526, 7, 393216, 65526, 8, 393216)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="ScoreCard" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="ScoreCard"]
+position = Vector2(1053, 62)
+scale = Vector2(0.14, 0.138)
+texture = ExtResource("5_4uav2")
+
+[node name="CoinX" type="Label" parent="ScoreCard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1093.0
+offset_top = 15.0
+offset_right = -88.0
+offset_bottom = -618.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.833333, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = SubResource("SystemFont_volrp")
+theme_override_font_sizes/font_size = 46
+text = "x"
+vertical_alignment = 1
+
+[node name="Counter" type="Label" parent="ScoreCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1138.0
+offset_top = 16.0
+offset_right = -18.0
+offset_bottom = -609.0
+text = "Q"
+label_settings = SubResource("LabelSettings_3pcpm")
+vertical_alignment = 1
+script = ExtResource("6_ggejw")
+
+[node name="Timer" type="Timer" parent="ScoreCard/Counter"]
+
+[node name="NextLevel" type="Label" parent="ScoreCard"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 358.0
+offset_top = 726.0
+offset_right = 1152.0
+offset_bottom = 1034.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NEXT LEVEL!"
+label_settings = SubResource("LabelSettings_js6m8")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_xlvnu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScoreCard/NextLevel"]
+libraries = {
+"": SubResource("AnimationLibrary_fgobl")
+}
+
+[node name="Coins" type="Node3D" parent="."]
+
+[node name="CoinHolder" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40518, 0.908735, 3.548)
+
+[node name="CoinHolder2" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder2" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.96692, 0.908735, 3.548)
+
+[node name="CoinHolder3" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder3" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.96692, 0.908735, 0.166472)
+
+[node name="CoinHolder4" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder4" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.96692, 0.908735, -3.15406)
+
+[node name="CoinHolder5" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder5" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.40518, 0.908735, -8.00645)
+
+[node name="CoinHolder6" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder6" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0808594, 0.908735, -8.00645)
+
+[node name="CoinHolder7" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder7" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.91292, 0.908735, 3.548)
+
+[node name="CoinHolder8" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder8" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.91292, 0.908735, 1.84518)
+
+[node name="CoinHolder9" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder9" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0808594, 0.908735, 7.94038)
+
+[node name="CoinHolder10" type="Node3D" parent="Coins"]
+
+[node name="Coin" parent="Coins/CoinHolder10" instance=ExtResource("6_tdvgn")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.6024, 0.908735, 7.94038)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("5_3qt73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29417, 0.603103, 2.33832)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemies/Enemy"]
+libraries = {
+"": SubResource("AnimationLibrary_yhi8d")
+}
+autoplay = "enemy1animation"
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("5_3qt73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29417, 0.603103, 2.33832)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemies/Enemy2"]
+libraries = {
+"": SubResource("AnimationLibrary_yhi8d")
+}
+autoplay = "enemy2animation"
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("5_3qt73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29417, 0.603103, 2.33832)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemies/Enemy3"]
+libraries = {
+"": SubResource("AnimationLibrary_yhi8d")
+}
+autoplay = "enemy3animation"
+
+[node name="Level1Player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_53vjw")
+
+[connection signal="level_finished" from="ScoreCard/Counter" to="ScoreCard/NextLevel" method="_on_counter_level_finished"]
+[connection signal="timeout" from="ScoreCard/Counter/Timer" to="ScoreCard/Counter" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Coins/CoinHolder/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder/Coin" to="ScoreCard/Counter" method="_on_coin_collected"]
+[connection signal="body_entered" from="Coins/CoinHolder2/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder2/Coin" to="ScoreCard/Counter" method="_on_coin_collected"]
+[connection signal="body_entered" from="Coins/CoinHolder3/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder3/Coin" to="ScoreCard/Counter" method="_on_coin_collected"]
+[connection signal="body_entered" from="Coins/CoinHolder4/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder4/Coin" to="ScoreCard/Counter" method="_on_coin_collected"]
+[connection signal="body_entered" from="Coins/CoinHolder5/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder5/Coin" to="ScoreCard/Counter" method="_on_coin_collected"]
+[connection signal="body_entered" from="Coins/CoinHolder6/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder6/Coin" to="ScoreCard/Counter" method="_on_coin_collected"]
+[connection signal="body_entered" from="Coins/CoinHolder7/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder7/Coin" to="ScoreCard/Counter" method="_on_coin_7_coin_collected"]
+[connection signal="body_entered" from="Coins/CoinHolder8/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder8/Coin" to="ScoreCard/Counter" method="_on_coin_collected"]
+[connection signal="body_entered" from="Coins/CoinHolder9/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder9/Coin" to="ScoreCard/Counter" method="_on_coin_collected"]
+[connection signal="body_entered" from="Coins/CoinHolder10/Coin" to="Bowly" method="_on_coin_body_entered"]
+[connection signal="coinCollected" from="Coins/CoinHolder10/Coin" to="ScoreCard/Counter" method="_on_coin_collected"]
+[connection signal="body_entered" from="Enemies/Enemy" to="Bowly" method="_on_enemy_body_entered"]
+[connection signal="body_entered" from="Enemies/Enemy2" to="Bowly" method="_on_enemy_body_entered"]
+[connection signal="body_entered" from="Enemies/Enemy3" to="Bowly" method="_on_enemy_body_entered"]

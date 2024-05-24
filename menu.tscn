@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://btn4cq3cm6reh"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_3ys13"]
+[ext_resource type="Script" path="res://scripts/Button-Play.gd" id="1_lebmy"]
+[ext_resource type="AudioStream" uid="uid://bl2htxgodswrf" path="res://sounds/game-music-loop-3-144252.mp3" id="3_ayikh"]
+
+[sub_resource type="SystemFont" id="SystemFont_7rh54"]
+font_names = PackedStringArray("Jokerman")
+
+[sub_resource type="LabelSettings" id="LabelSettings_lf82x"]
+font = SubResource("SystemFont_7rh54")
+font_size = 150
+font_color = Color(0, 0.87, 0.87, 1)
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 30
+shadow_color = Color(0.780392, 0, 0.745098, 0.788235)
+shadow_offset = Vector2(3.905, -5.865)
+
+[sub_resource type="SystemFont" id="SystemFont_1owss"]
+font_names = PackedStringArray("Ravie")
+hinting = 2
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3ys13")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 44.0
+offset_right = 14.0
+offset_bottom = -448.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0795058
+text = "Bally the Ball!"
+label_settings = SubResource("LabelSettings_lf82x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00179815, 0.154856, 0.291399, 1)
+
+[node name="Button-Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 474.0
+offset_top = 382.0
+offset_right = -472.0
+offset_bottom = -243.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.79, 0.763667, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.349001, 0.056904, 1)
+theme_override_fonts/font = SubResource("SystemFont_1owss")
+theme_override_font_sizes/font_size = 48
+text = "PLAY!"
+flat = true
+script = ExtResource("1_lebmy")
+
+[node name="MenuPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ayikh")
+
+[connection signal="pressed" from="Button-Play" to="Button-Play" method="_on_pressed"]

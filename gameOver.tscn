@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4bpqg1lshx6i"]
+
+[ext_resource type="Script" path="res://scripts/gameOver.gd" id="1_k108u"]
+[ext_resource type="Script" path="res://scripts/Button-Play.gd" id="1_kv08m"]
+[ext_resource type="AudioStream" uid="uid://cu34wkiu4m4fr" path="res://sounds/cinematic-music-sketches-03-cinematic-sentimental-lullaby-sketch-115537.mp3" id="3_60tv2"]
+[ext_resource type="AudioStream" uid="uid://bgm6n6yxyt0jn" path="res://sounds/surprise-sound-effect-99300.mp3" id="4_5wdhw"]
+
+[sub_resource type="SystemFont" id="SystemFont_7rh54"]
+font_names = PackedStringArray("Jokerman")
+
+[sub_resource type="LabelSettings" id="LabelSettings_lf82x"]
+font = SubResource("SystemFont_7rh54")
+font_size = 150
+font_color = Color(0.87, 0.5075, 0, 1)
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 30
+shadow_color = Color(0.78, 0.195, 0, 0.788235)
+shadow_offset = Vector2(3.905, -5.865)
+
+[sub_resource type="SystemFont" id="SystemFont_1owss"]
+font_names = PackedStringArray("Ravie")
+hinting = 2
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k108u")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = 142.0
+offset_right = -6.0
+offset_bottom = -350.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.110081
+text = "GAME OVER!"
+label_settings = SubResource("LabelSettings_lf82x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.307539, 0, 0.00172827, 1)
+
+[node name="Button-Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 474.0
+offset_top = 382.0
+offset_right = -472.0
+offset_bottom = -243.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.965607, 0.633377, 0.658071, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0.0588235, 1)
+theme_override_fonts/font = SubResource("SystemFont_1owss")
+theme_override_font_sizes/font_size = 48
+text = "PLAY AGAIN!"
+flat = true
+script = ExtResource("1_kv08m")
+
+[node name="GameOverPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_60tv2")
+
+[node name="GotHitPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5wdhw")
+
+[connection signal="pressed" from="Button-Play" to="Button-Play" method="_on_pressed"]

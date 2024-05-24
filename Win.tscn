@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://wv03vrip6xi3"]
+
+[ext_resource type="Script" path="res://scripts/Button-Play.gd" id="1_kgbuw"]
+[ext_resource type="Script" path="res://scripts/Win.gd" id="1_qxtxi"]
+[ext_resource type="AudioStream" uid="uid://bj4j3qp7vo1ko" path="res://sounds/8bit-sample-69080.mp3" id="3_q0ty3"]
+
+[sub_resource type="SystemFont" id="SystemFont_7rh54"]
+font_names = PackedStringArray("Jokerman")
+
+[sub_resource type="LabelSettings" id="LabelSettings_lf82x"]
+font = SubResource("SystemFont_7rh54")
+font_size = 150
+font_color = Color(0.88003, 0.295226, 1, 1)
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 30
+shadow_color = Color(0.380464, 0.00137673, 0.604216, 0.788235)
+shadow_offset = Vector2(3.905, -5.865)
+
+[sub_resource type="SystemFont" id="SystemFont_1owss"]
+font_names = PackedStringArray("Ravie")
+hinting = 2
+
+[node name="Win" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qxtxi")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 118.0
+offset_right = 1.0
+offset_bottom = -374.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU WIN!"
+label_settings = SubResource("LabelSettings_lf82x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.121569, 0.960784, 0.65098, 1)
+
+[node name="Button-Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 474.0
+offset_top = 382.0
+offset_right = -472.0
+offset_bottom = -243.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1.58831e-06, 0.467353, 0.485158, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0.0588235, 1)
+theme_override_fonts/font = SubResource("SystemFont_1owss")
+theme_override_font_sizes/font_size = 48
+text = "PLAY AGAIN"
+flat = true
+script = ExtResource("1_kgbuw")
+
+[node name="WinPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_q0ty3")
+
+[connection signal="pressed" from="Button-Play" to="Button-Play" method="_on_pressed"]
